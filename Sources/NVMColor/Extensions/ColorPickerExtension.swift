@@ -19,7 +19,7 @@ extension ColorPicker {
      It will only be triggered when the color changes.
      */
     @inlinable public func onHexChange(of color: Color, oldColor: Color? = nil, perform action: @escaping (_ hex: String) -> Void) -> some View {
-        return self.onColorCshange(of: color) { color in
+        return self.onColorChange(of: color) { color in
             if let hexColor = color.hex {
                 action(hexColor.cleanedHex)
             }
