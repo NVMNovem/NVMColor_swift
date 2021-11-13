@@ -18,9 +18,9 @@ extension ColorPicker {
      This function makes sure it doesn't do that.
      It will only be triggered when the color changes.
      */
-    @inlinable public func onColorChange(of color: Color, perform action: @escaping (_ hex: String) -> Void) -> some View {
-        return self.onChange(of: color) { newColor in
-            if let hexColor = newColor.hex, !"\(newColor)".isHex() {
+    @inlinable public func onHexChange(of color: Color, oldColor: Color? = nil, perform action: @escaping (_ hex: String) -> Void) -> some View {
+        return self.onColorCshange(of: color) { color in
+            if let hexColor = color.hex {
                 action(hexColor.cleanedHex)
             }
         }
@@ -32,10 +32,14 @@ extension ColorPicker {
      This function makes sure it doesn't do that.
      It will only be triggered when the color changes.
      */
-    @inlinable public func onColorChange(of color: Color, perform action: @escaping (_ color: Color) -> Void) -> some View {
+    @inlinable public func onColorChange(of color: Color, oldColor: Color? = nil, perform action: @escaping (_ color: Color) -> Void) -> some View {
         return self.onChange(of: color) { newColor in
-            if !"\(newColor)".isHex() {
+            if let oldColor = oldColor, newColor != oldColor {
                 action(newColor)
+            } else {
+                if !"\(newColor)".isHex() {
+                    action(newColor)
+                }
             }
         }
     }
