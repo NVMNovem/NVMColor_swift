@@ -9,7 +9,7 @@ import SwiftUI
 
 public extension Color {
     
-    init(_ hex: String) {
+    init(hex: String) {
         let hex = hex.cleanedHex
         var int: UInt64 = 0
         

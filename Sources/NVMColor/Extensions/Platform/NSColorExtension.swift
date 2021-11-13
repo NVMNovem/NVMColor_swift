@@ -11,8 +11,8 @@ import SwiftUI
 
 extension NSColor {
     
-    convenience init(_ hex: String) {
-        self.init(Color(hex))
+    convenience init(hex: String) {
+        self.init(Color(hex: hex))
     }
     
     var hex: String? {

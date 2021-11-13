@@ -12,8 +12,8 @@ import SwiftUI
 extension UIColor {
     
     @available(iOS 14, *)
-    convenience init(_ hex: String) {
-        self.init(Color(hex))
+    convenience init(hex: String) {
+        self.init(Color(hex: hex))
     }
     
     var hex: String? {
