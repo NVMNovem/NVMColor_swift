@@ -11,11 +11,11 @@ import SwiftUI
 
 extension NSColor {
     
-    convenience init(hex: String) {
+    public convenience init(hex: String) {
         self.init(Color(hex: hex))
     }
     
-    var hex: String? {
+    public var hex: String? {
         return Color(self).hex
     }
 }

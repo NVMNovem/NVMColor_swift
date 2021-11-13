@@ -9,7 +9,7 @@ import SwiftUI
 
 public extension Color {
     
-    init(hex: String) {
+    public init(hex: String) {
         let hex = hex.cleanedHex
         var int: UInt64 = 0
         
@@ -30,7 +30,7 @@ public extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue:  Double(b) / 255, opacity: Double(a) / 255)
     }
     
-    var hex: String? {
+    public var hex: String? {
         let colorString = "\(self)"
         if let colorHex = colorString.isHex() {
             return colorHex.cleanedHex
