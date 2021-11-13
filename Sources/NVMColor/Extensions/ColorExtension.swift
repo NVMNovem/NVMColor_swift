@@ -5,13 +5,13 @@
 //  Created by Damian Van de Kauter on 13/11/2021.
 //
 
-import Foundation
+import SwiftUI
 
 public extension Color {
     var hex: String? {
         let colorString = "\(self)"
         if let colorHex = colorString.isHex() {
-            return colorHex
+            return colorHex.cleanedHex
         } else {
             var colorArray: [String] = colorString.components(separatedBy: " ")
             if colorArray.count < 3 { colorArray = colorString.components(separatedBy: ", ") }
@@ -37,7 +37,7 @@ public extension Color {
                 if (b > 1.0) {b = 1.0}
                 
                 let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-                return String(format: "#%06X", rgb).replacingOccurrences(of: "#", with: "")
+                return String(format: "#%06X", rgb).cleanedHex
             } else {
                 return nil
             }

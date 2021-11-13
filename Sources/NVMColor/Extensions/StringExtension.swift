@@ -30,19 +30,64 @@ extension String {
      */
     public func isHex() -> String? {
         if self.isHex() {
-            return self.cleanedHex()
+            return self.cleanedHex
         } else {
             return nil
         }
     }
     
-    public var cleanedHex -> String {
-        return self.filter("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".contains)
+    public var cleanedHex: String {
+        return self.trimmingCharacters(in: CharacterSet.alphanumerics.inverted).cleanedString.uppercased()
     }
 }
 
 extension String {
     internal func isAlphanumeric() -> Bool {
-        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+        return ((!self.isEmpty) && (self.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil))
+    }
+    
+    internal var cleanedString: String {
+        var cleanedString = self
+        
+        cleanedString = cleanedString.replacingOccurrences(of: "á", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "ä", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "â", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "à", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "æ", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "ã", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "å", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "ā", with: "a")
+        cleanedString = cleanedString.replacingOccurrences(of: "ç", with: "c")
+        cleanedString = cleanedString.replacingOccurrences(of: "é", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "ë", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "ê", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "è", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "ę", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "ė", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "ē", with: "e")
+        cleanedString = cleanedString.replacingOccurrences(of: "í", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "ï", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "ì", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "î", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "į", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "ī", with: "i")
+        cleanedString = cleanedString.replacingOccurrences(of: "j́", with: "j")
+        cleanedString = cleanedString.replacingOccurrences(of: "ñ", with: "n")
+        cleanedString = cleanedString.replacingOccurrences(of: "ń", with: "n")
+        cleanedString = cleanedString.replacingOccurrences(of: "ó", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ö", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ô", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ò", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "õ", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "œ", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ø", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ō", with: "o")
+        cleanedString = cleanedString.replacingOccurrences(of: "ú", with: "u")
+        cleanedString = cleanedString.replacingOccurrences(of: "ü", with: "u")
+        cleanedString = cleanedString.replacingOccurrences(of: "û", with: "u")
+        cleanedString = cleanedString.replacingOccurrences(of: "ù", with: "u")
+        cleanedString = cleanedString.replacingOccurrences(of: "ū", with: "u")
+        
+        return cleanedString
     }
 }
