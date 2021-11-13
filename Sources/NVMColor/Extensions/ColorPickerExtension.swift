@@ -25,4 +25,18 @@ extension ColorPicker {
             }
         }
     }
+    
+    /**
+     This ColorPicker function allows you to easily catch the HEX String.
+     If a ColorPicker set's it's first color in the .onAppear, it normally triggers an .onChange.
+     This function makes sure it doesn't do that.
+     It will only be triggered when the color changes.
+     */
+    @inlinable public func colorChange(of color: Color, perform action: @escaping (_ color: Color) -> Void) -> some View {
+        return self.onChange(of: color) { newColor in
+            if !"\(newColor)".isHex() {
+                action(newColor)
+            }
+        }
+    }
 }
