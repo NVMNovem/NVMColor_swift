@@ -10,7 +10,7 @@ import Foundation
 extension String {
     public func isHex() -> Bool {
         if self.contains("#") {
-            if ((self.cleanedHex().count == 6) || (self.cleanedHex().count == 8)) {
+            if ((self.cleanedHex.count == 6) || (self.cleanedHex.count == 8)) {
                 return true
             } else {
                 return false
@@ -35,14 +35,14 @@ extension String {
             return nil
         }
     }
+    
+    public var cleanedHex -> String {
+        return self.filter("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".contains)
+    }
 }
 
 extension String {
     internal func isAlphanumeric() -> Bool {
         return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
-    }
-    
-    internal func cleanedHex() -> String {
-        return self.filter("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".contains)
     }
 }
