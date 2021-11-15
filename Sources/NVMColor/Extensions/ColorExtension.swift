@@ -7,8 +7,13 @@
 
 import SwiftUI
 
-public extension Color {
+extension Color {
     
+    /**
+     This initializer  will convert a valid **hex** `String` to a `Color`.
+     
+     - warning: Converting a **hex** to a `Color` can cause a slight accuracy loss.
+     */
     public init(hex: String) {
         let hex = hex.cleanedHex
         var int: UInt64 = 0
@@ -30,6 +35,11 @@ public extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue:  Double(b) / 255, opacity: Double(a) / 255)
     }
     
+    /**
+     This variable will convert a `Color` to a **hex** `String`.
+     
+     - warning: Converting a `Color` to a **hex** can cause a slight accuracy loss.
+     */
     public var hex: String? {
         let colorString = "\(self)"
         if let colorHex = colorString.isHex() {

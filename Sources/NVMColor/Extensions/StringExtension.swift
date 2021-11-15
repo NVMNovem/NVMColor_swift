@@ -8,6 +8,12 @@
 import Foundation
 
 extension String {
+    
+    /**
+     This function will check if the String is a hex.
+     
+     - warning: This doesn't validate wheter or not this is an actual valid color.
+     */
     public func isHex() -> Bool {
         if (((self.cleanedHex.count == 6) || (self.cleanedHex.count == 8)) && (self.replacingOccurrences(of: "#", with: "").isAlphanumeric())) {
             return true
@@ -28,12 +34,20 @@ extension String {
         }
     }
     
+    /**
+     This variable will return you a cleaned **hex** of the given `String`.
+     
+     - returns: An alphanumeric `String`.
+     
+     - note: This will remove the "#" from the string.
+     */
     public var cleanedHex: String {
         return self.replacingOccurrences(of: "#", with: "").trimmingCharacters(in: CharacterSet.alphanumerics.inverted).cleanedString.uppercased()
     }
 }
 
 extension String {
+    
     internal func isAlphanumeric() -> Bool {
         return ((!self.isEmpty) && (self.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil))
     }
