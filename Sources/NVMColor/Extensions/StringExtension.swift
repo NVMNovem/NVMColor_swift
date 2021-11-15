@@ -9,18 +9,10 @@ import Foundation
 
 extension String {
     public func isHex() -> Bool {
-        if self.contains("#") {
-            if ((self.cleanedHex.count == 6) || (self.cleanedHex.count == 8)) {
-                return true
-            } else {
-                return false
-            }
+        if (((self.cleanedHex.count == 6) || (self.cleanedHex.count == 8)) && (self.replacingOccurrences(of: "#", with: "").isAlphanumeric())) {
+            return true
         } else {
-            if ((self.count == 6 || self.count == 8) && self.isAlphanumeric()) {
-                return true
-            } else {
-                return false
-            }
+            return false
         }
     }
     
@@ -37,7 +29,7 @@ extension String {
     }
     
     public var cleanedHex: String {
-        return self.trimmingCharacters(in: CharacterSet.alphanumerics.inverted).cleanedString.uppercased()
+        return self.replacingOccurrences(of: "#", with: "").trimmingCharacters(in: CharacterSet.alphanumerics.inverted).cleanedString.uppercased()
     }
 }
 
