@@ -6,9 +6,8 @@
 
 A pure Swift library that allows you to easily convert SwiftUI Colors to Hex String and vice versa.
 
-There is also support for other types. 
-Currently all supported types are **UIColor** and **NSColor**.
-Depending on the target version, you have the same functions as SwifUI's Color.
+This framework extends the **Color**, **UIColor** and **NSColor** types.
+Depending on the target version, you have the same functions as SwifUI's **Color**.
 
 This project is created and maintained by Novem.
 
