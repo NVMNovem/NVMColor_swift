@@ -43,4 +43,49 @@ search field. Then select the option that is most suited for your needs.
 
 ## Usage Guide
 
-### Code
+### Hex string to Color
+```swift
+let color = Color(hex: "159F84")
+```
+
+### Color to Hex string
+```swift
+let hexColor = Color.green.hex
+```
+
+### Compare 2 Colors
+
+Non valid comparisson
+```swift
+if Color.green.isEqual(to: .red) {
+   //Will not be executed
+}
+```
+
+Non valid comparisson using tolerance
+```swift
+if Color.green.isEqual(to: .red, tolerance: 0.5) {
+   //Will not be executed
+}
+```
+
+Valid comparisson
+```swift
+if Color.green.isEqual(to: Color(hex: "34C759")) {
+   //Will be executed
+}
+```
+
+Valid comparisson using tolerance
+```swift
+if Color.green.isEqual(to: Color(hex: "34C759"), tolerance: 0.5) {
+   //Will be executed
+}
+```
+
+You can also compare by using the NVMColor function.
+```swift
+if NVMColor.colorsAreEqual(.green, to: Color(hex: "34C759")) {
+   //Will be executed
+}
+```
