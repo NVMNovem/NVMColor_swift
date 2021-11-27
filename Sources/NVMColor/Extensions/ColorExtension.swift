@@ -133,4 +133,19 @@ extension Color {
         }
         #endif
     }
+    
+    /**
+     This variable will convert a `Color` to a themed `Color`.
+     If the **device theme** is dark, and the input is dark, it will return `Color.primary`.
+     If the **device theme** is light, and the input is light, it will return `Color.primary`.
+     
+     - note: Comparison is calculated with a **0.2** tolerance.
+     */
+    public var themedMonoColor: Color {
+        if ((self.isEqual(to: .black, tolerance: 0.2)) || (self.isEqual(to: .white, tolerance: 0.2))) {
+            return Color.primary
+        } else {
+            return self
+        }
+    }
 }
