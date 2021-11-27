@@ -141,6 +141,7 @@ extension Color {
      
      - note: Comparison is calculated with a **0.2** tolerance.
      */
+    @available(iOS 14.0, *)
     public var themedMonoColor: Color {
         if ((self.isEqual(to: .black, tolerance: 0.2)) || (self.isEqual(to: .white, tolerance: 0.2))) {
             return Color.primary
