@@ -16,7 +16,9 @@ This project is created and maintained by Novem.
 - [Installation](#installation)
   - [Swift Package Manager](#swift-package-manager)
 - [Usage Guide](#usage-guide)
-  - [Code](#code)
+  - [Hex string to Color](#hex-string-to-color)
+  - [Color to Hex string](#color-to-hex-string)
+  - [Compare 2 Colors](#compare-2-colors)
 
 ## Installation
 
