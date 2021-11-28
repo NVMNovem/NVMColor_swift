@@ -17,8 +17,9 @@ extension UIColor {
      - warning: Converting a **hex** to a `UIColor` can cause a slight accuracy loss.
      */
     @available(iOS 14, *)
-    public convenience init(hex: String) {
-        self.init(Color(hex: hex))
+    public convenience init?(hex: String?) {
+        guard let color = Color(hex: hex) else { return nil }
+        self.init(color)
     }
     
     /**

@@ -16,8 +16,9 @@ extension NSColor {
      
      - warning: Converting a **hex** to a `NSColor` can cause a slight accuracy loss.
      */
-    public convenience init(hex: String) {
-        self.init(Color(hex: hex))
+    public convenience init?(hex: String?) {
+        guard let color = Color(hex: hex) else { return nil }
+        self.init(color)
     }
     
     /**

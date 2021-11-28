@@ -18,10 +18,11 @@ public struct NVMColor {
      
      - parameter color: The valid **hex** `String`.
      
+     - note: If no `Color` could be created, the default **Color.primary** is returned.
      - warning: Converting a **hex** to a `Color` can cause a slight accuracy loss.
      */
     public static func getColor(from hex: String) -> Color {
-        return Color(hex: hex)
+        return Color(hex: hex) ?? .primary
     }
     
     /**

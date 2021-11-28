@@ -15,32 +15,32 @@ final class NVMColorTests: XCTestCase {
     func testColorComparison() throws {
         XCTAssertTrue(Color.green.isEqual(to: Color.green))
         XCTAssertTrue(Color.white.isEqual(to: Color.white))
-        XCTAssertTrue(Color.white.isEqual(to: Color(hex: "FFFFFF")))
+        XCTAssertTrue(Color.white.isEqual(to: Color(hex: "FFFFFF")!))
         XCTAssertTrue(Color.black.isEqual(to: Color.black))
-        XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000")))
+        XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000")!))
     }
     @available(iOS 14.0, *)
     func testColorComparisonWithTolerance() throws {
         XCTAssertTrue(Color.green.isEqual(to: Color.green, tolerance: 0.1))
         XCTAssertTrue(Color.white.isEqual(to: Color.white, tolerance: 0.1))
-        XCTAssertTrue(Color.white.isEqual(to: Color(hex: "FFFFFF"), tolerance: 0.1))
+        XCTAssertTrue(Color.white.isEqual(to: Color(hex: "FFFFFF")!, tolerance: 0.1))
         XCTAssertTrue(Color.black.isEqual(to: Color.black, tolerance: 0.1))
-        XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000"), tolerance: 0.1))
+        XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000")!, tolerance: 0.1))
     }
     @available(iOS 14.0, *)
     func testColorComparisonFalse() throws {
         XCTAssertFalse(Color.green.isEqual(to: Color.red))
         XCTAssertFalse(Color.white.isEqual(to: Color.black))
-        XCTAssertFalse(Color.white.isEqual(to: Color(hex: "000000")))
+        XCTAssertFalse(Color.white.isEqual(to: Color(hex: "000000")!))
         XCTAssertFalse(Color.black.isEqual(to: Color.white))
-        XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")))
+        XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")!))
     }
     @available(iOS 14.0, *)
     func testColorComparisonFalseWithTolerance() throws {
         XCTAssertFalse(Color.green.isEqual(to: Color.red, tolerance: 0.1))
         XCTAssertFalse(Color.white.isEqual(to: Color.black, tolerance: 0.1))
-        XCTAssertFalse(Color.white.isEqual(to: Color(hex: "000000"), tolerance: 0.1))
+        XCTAssertFalse(Color.white.isEqual(to: Color(hex: "000000")!, tolerance: 0.1))
         XCTAssertFalse(Color.black.isEqual(to: Color.white, tolerance: 0.1))
-        XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF"), tolerance: 0.1))
+        XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")!, tolerance: 0.1))
     }
 }
