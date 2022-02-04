@@ -56,7 +56,7 @@ extension Color {
                 return (!colorElement.isEmpty) && (String(colorElement).replacingOccurrences(of: ".", with: "").rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil)
             }
             
-            if (colorArray.count == 3) || (colorArray.count == 4) { //count == 4 if alpha is set
+            if (colorArray.count == 3) { //count == 3 no alpha set
                 var r: CGFloat = CGFloat((Float(colorArray[0]) ?? 1))
                 var g: CGFloat = CGFloat((Float(colorArray[1]) ?? 1))
                 var b: CGFloat = CGFloat((Float(colorArray[2]) ?? 1))
@@ -70,7 +70,27 @@ extension Color {
                 if (b > 1.0) {b = 1.0}
                 
                 let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+                
                 return String(format: "#%06X", rgb).cleanedHex
+            } else if (colorArray.count == 4) { //count == 4 alpha is set
+                var r: CGFloat = CGFloat((Float(colorArray[0]) ?? 1))
+                var g: CGFloat = CGFloat((Float(colorArray[1]) ?? 1))
+                var b: CGFloat = CGFloat((Float(colorArray[2]) ?? 1))
+                var a: CGFloat = CGFloat((Float(colorArray[3]) ?? 1))
+                
+                if (r < 0.0) {r = 0.0}
+                if (g < 0.0) {g = 0.0}
+                if (b < 0.0) {b = 0.0}
+                if (a < 0.0) {a = 0.0}
+                
+                if (r > 1.0) {r = 1.0}
+                if (g > 1.0) {g = 1.0}
+                if (b > 1.0) {b = 1.0}
+                if (a > 1.0) {a = 1.0}
+                
+                let rgba: Int = (Int)(r*255)<<24 | (Int)(g*255)<<16 | (Int)(b*255)<<8 | (Int)(a*255)<<0
+                
+                return String(format: "#%08X", rgba).cleanedHex
             } else {
                 return nil
             }
