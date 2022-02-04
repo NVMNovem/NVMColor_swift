@@ -16,24 +16,42 @@ extension Color {
      */
     public init?(hex: String?) {
         guard let hexString = hex else { return nil }
+        
+        let r, g, b, a: CGFloat
         let cleanedHex = hexString.cleanedHex
-        var int: UInt64 = 0
         
-        Scanner(string: cleanedHex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        
-        switch cleanedHex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
+        if cleanedHex.count == 8 {
+            let scanner = Scanner(string: cleanedHex)
+            var hexNumber: UInt64 = 0
+
+            if scanner.scanHexInt64(&hexNumber) {
+                r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                a = CGFloat(hexNumber & 0x000000ff) / 255
+                
+                self.init(.sRGB, red: Double(r), green: Double(g), blue:  Double(b), opacity: Double(a))
+                return
+            } else {
+                return nil
+            }
+        } else if cleanedHex.count == 6 {
+            let scanner = Scanner(string: cleanedHex)
+            var hexNumber: UInt64 = 0
+
+            if scanner.scanHexInt64(&hexNumber) {
+                r = CGFloat((hexNumber & 0xff0000) >> 16) / 255
+                g = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
+                b = CGFloat((hexNumber & 0x0000ff) >> 0) / 255
+                
+                self.init(.sRGB, red: Double(r), green: Double(g), blue:  Double(b))
+                return
+            } else {
+                return nil
+            }
+        } else {
             return nil
         }
-        
-        self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue:  Double(b) / 255, opacity: Double(a) / 255)
     }
     
     /**
@@ -57,9 +75,9 @@ extension Color {
             }
             
             if (colorArray.count == 3) { //count == 3 no alpha set
-                var r: CGFloat = CGFloat((Float(colorArray[0]) ?? 1))
-                var g: CGFloat = CGFloat((Float(colorArray[1]) ?? 1))
-                var b: CGFloat = CGFloat((Float(colorArray[2]) ?? 1))
+                var r: Float = Float(colorArray[0]) ?? 1
+                var g: Float = Float(colorArray[1]) ?? 1
+                var b: Float = Float(colorArray[2]) ?? 1
                 
                 if (r < 0.0) {r = 0.0}
                 if (g < 0.0) {g = 0.0}
@@ -69,14 +87,12 @@ extension Color {
                 if (g > 1.0) {g = 1.0}
                 if (b > 1.0) {b = 1.0}
                 
-                let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-                
-                return String(format: "#%06X", rgb).cleanedHex
+                return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)).cleanedHex
             } else if (colorArray.count == 4) { //count == 4 alpha is set
-                var r: CGFloat = CGFloat((Float(colorArray[0]) ?? 1))
-                var g: CGFloat = CGFloat((Float(colorArray[1]) ?? 1))
-                var b: CGFloat = CGFloat((Float(colorArray[2]) ?? 1))
-                var a: CGFloat = CGFloat((Float(colorArray[3]) ?? 1))
+                var r: Float = Float(colorArray[0]) ?? 1
+                var g: Float = Float(colorArray[1]) ?? 1
+                var b: Float = Float(colorArray[2]) ?? 1
+                var a: Float = Float(colorArray[3]) ?? 1
                 
                 if (r < 0.0) {r = 0.0}
                 if (g < 0.0) {g = 0.0}
@@ -88,9 +104,7 @@ extension Color {
                 if (b > 1.0) {b = 1.0}
                 if (a > 1.0) {a = 1.0}
                 
-                let rgba: Int = (Int)(r*255)<<24 | (Int)(g*255)<<16 | (Int)(b*255)<<8 | (Int)(a*255)<<0
-                
-                return String(format: "#%08X", rgba).cleanedHex
+                return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255)).cleanedHex
             } else {
                 return nil
             }

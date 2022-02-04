@@ -43,4 +43,8 @@ final class NVMColorTests: XCTestCase {
         XCTAssertFalse(Color.black.isEqual(to: Color.white, tolerance: 0.1))
         XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")!, tolerance: 0.1))
     }
+    func testOpacicty() throws {
+        let testColor = Color(.sRGB, red: 0.5, green: 0.3, blue: 0.1, opacity: 0.75)
+        XCTAssertTrue(testColor.isEqual(to: Color(hex: "804C19BF")!, tolerance: 0.1))
+    }
 }
