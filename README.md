@@ -19,6 +19,7 @@ This project is created and maintained by Novem.
   - [Hex string to Color](#hex-string-to-color)
   - [Color to Hex string](#color-to-hex-string)
   - [Compare 2 Colors](#compare-2-colors)
+  - [Themed Color](#themed-colors)
 
 ## Installation
 
