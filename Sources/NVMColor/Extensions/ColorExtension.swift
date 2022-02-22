@@ -120,7 +120,7 @@ extension Color {
      - note: The default tolerance is **0.3**.
      */
     @available(iOS 14.0, *)
-    public func isEqual(to color: Color, tolerance: CGFloat = 0.3) -> Bool {
+    public func isEqual(to color: Color, tolerance: CGFloat = 0.3, checkAlpha: Bool = false) -> Bool {
         #if os(iOS)
         var r1 : CGFloat = 0
         var g1 : CGFloat = 0
@@ -134,11 +134,11 @@ extension Color {
         UIColor(self).getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
         UIColor(color).getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
 
-        return
-            abs(r1 - r2) <= tolerance &&
-            abs(g1 - g2) <= tolerance &&
-            abs(b1 - b2) <= tolerance &&
-            abs(a1 - a2) <= tolerance
+        if checkAlpha {
+            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance && abs(a1 - a2) <= tolerance
+        } else {
+            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance
+        }
         #elseif os(macOS)
         if let newSelfColor = NSColor(self).usingColorSpace(.deviceRGB) {
             if let newColor = NSColor(color).usingColorSpace(.deviceRGB) {
@@ -155,11 +155,11 @@ extension Color {
                 newSelfColor.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
                 newColor.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
 
-                return
-                    abs(r1 - r2) <= tolerance &&
-                    abs(g1 - g2) <= tolerance &&
-                    abs(b1 - b2) <= tolerance &&
-                    abs(a1 - a2) <= tolerance
+                if checkAlpha {
+                    return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance && abs(a1 - a2) <= tolerance
+                } else {
+                    return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance
+                }
             } else {
                 return false
             }
@@ -171,14 +171,51 @@ extension Color {
     
     /**
      This variable will convert a `Color` to a themed `Color`.
+     If the input color is close to black or white, it will return `Color.primary`.
+     
+     - note: Comparison is calculated with a **0.3** tolerance.
+     - warning: This does not look at the current theme. If you want to look at the current theme, use the **func themedColor()**
+     */
+    @available(iOS 14.0, *)
+    public var themedColor: Color {
+        if ((self.isEqual(to: .black, tolerance: 0.3)) || (self.isEqual(to: .white, tolerance: 0.3))) {
+            return Color.primary
+        } else {
+            return self
+        }
+    }
+    
+    /**
+     This variable will convert a `Color` to a themed `Color`.
+     If the **device theme** is dark, and the input is dark, it will the `replacingColor` or it will return `Color.primary`.
+     If the **device theme** is light, and the input is light, it will the `replacingColor` or it will return `Color.primary`.
+     
+     - parameter colorScheme: Add **@Environment(\.colorScheme) private var colorScheme** to your SwiftUI view and pass it as the parameter.
+     - parameter replacingColor: An optional `Color` that will be returned if the color is to close to the themeColor. This color
+     - parameter tolerance: An optional `CGFloat` of a tolerance from **0** to **1.0**. Default is **0.3**.
+     */
+    @available(iOS 14.0, *)
+    public func themedColor(_ colorScheme: ColorScheme, replacingColor: Color? = nil, tolerance: CGFloat = 0.3) -> Color {
+        if self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false) {
+            return replacingColor?.fptThemedColor(colorScheme, tolerance: tolerance) ?? Color.primary
+        } else {
+            return self
+        }
+    }
+    
+    /**
+     This variable will convert a `Color` to a themed `Color`.
      If the **device theme** is dark, and the input is dark, it will return `Color.primary`.
      If the **device theme** is light, and the input is light, it will return `Color.primary`.
      
-     - note: Comparison is calculated with a **0.2** tolerance.
+     - parameter colorScheme: Add **@Environment(\.colorScheme) private var colorScheme** to your SwiftUI view and pass it as the parameter.
+     - parameter tolerance: An optional `CGFloat` of a tolerance from **0** to **1.0**. Default is **0.3**.
+     
+     - note: This function is only used to validate the replacingColor. FilePrivate use only.
      */
     @available(iOS 14.0, *)
-    public var themedMonoColor: Color {
-        if ((self.isEqual(to: .black, tolerance: 0.2)) || (self.isEqual(to: .white, tolerance: 0.2))) {
+    fileprivate func fptThemedColor(_ colorScheme: ColorScheme, tolerance: CGFloat = 0.3) -> Color {
+        if self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false) {
             return Color.primary
         } else {
             return self

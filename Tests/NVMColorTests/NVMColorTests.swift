@@ -3,6 +3,8 @@ import SwiftUI
 @testable import NVMColor
 
 final class NVMColorTests: XCTestCase {
+    @Environment(\.colorScheme) private var colorScheme
+    
     func testCleanedHex() throws {
         XCTAssertEqual("#FG25DF".cleanedHex, "FG25DF", "Cleaned Hex failed: \("#FG25DF".cleanedHex)")
         XCTAssertEqual("#DfkF5e".cleanedHex, "DFKF5E", "Cleaned Hex failed: \("#DfkF5e".cleanedHex)")
@@ -46,5 +48,27 @@ final class NVMColorTests: XCTestCase {
     func testOpacicty() throws {
         let testColor = Color(.sRGB, red: 0.5, green: 0.3, blue: 0.1, opacity: 0.75)
         XCTAssertTrue(testColor.isEqual(to: Color(hex: "804C19BF")!, tolerance: 0.1))
+    }
+    
+    @available(iOS 14.0, *)
+    func testThemedColor() throws {
+        XCTAssertEqual(Color.red.themedColor(colorScheme), Color.red)
+    }
+    @available(iOS 14.0, *)
+    func testThemedColor2() throws {
+        if colorScheme == .dark {
+            XCTAssertEqual(Color(hex: "2E3240")!.themedColor(colorScheme, tolerance: 0.3), Color.primary)
+        } else {
+            XCTAssertEqual(Color(hex: "D1CBC1")!.themedColor(colorScheme, tolerance: 0.3), Color.primary)
+        }
+    }
+    @available(iOS 14.0, *)
+    func testThemedColor3() throws {
+        let replacingColor = Color.green
+        if colorScheme == .dark {
+            XCTAssertEqual(Color(hex: "2E3240")!.themedColor(colorScheme, replacingColor: replacingColor, tolerance: 0.3), replacingColor)
+        } else {
+            XCTAssertEqual(Color(hex: "D1CBC1")!.themedColor(colorScheme, replacingColor: replacingColor, tolerance: 0.3), replacingColor)
+        }
     }
 }

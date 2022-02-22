@@ -3,5 +3,11 @@
 /Packages
 /*.xcodeproj
 xcuserdata/
+xcuserdata
 DerivedData/
+DerivedData
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+*.pbxuser
+.swiftpm/
+*.xcuserstate
+.swiftpm/xcode/package.xcworkspace/xcuserdata/vdkdamian.xcuserdatad/UserInterfaceState.xcuserstate
