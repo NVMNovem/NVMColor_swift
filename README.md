@@ -19,6 +19,7 @@ This project is created and maintained by Novem.
   - [Hex string to Color](#hex-string-to-color)
   - [Color to Hex string](#color-to-hex-string)
   - [Compare 2 Colors](#compare-2-colors)
+  - [Themed Color](#themed-color)
 
 ## Installation
 
@@ -89,5 +90,19 @@ You can also compare by using the NVMColor function.
 ```swift
 if NVMColor.colorsAreEqual(.green, to: Color(hex: "34C759")) {
    //Will be executed
+}
+```
+
+### Themed Color
+
+You can get a color that fits the current device sheme if the input color is to close to the device scheme color.
+```swift
+struct MyView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        Text("My custom text")
+            .foregroundColor(Color(hex: "2E3240")!.themedColor(colorScheme))
+    }
 }
 ```
