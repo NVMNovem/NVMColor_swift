@@ -196,7 +196,7 @@ extension Color {
      */
     @available(iOS 14.0, *)
     public func themedColor(_ colorScheme: ColorScheme, replacingColor: Color? = nil, tolerance: CGFloat = 0.3) -> Color {
-        if self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false) {
+        if self.isAffectedBy(colorScheme: colorScheme, tolerance: tolerance) {
             return replacingColor?.fptThemedColor(colorScheme, tolerance: tolerance) ?? Color.primary
         } else {
             return self
@@ -220,5 +220,12 @@ extension Color {
         } else {
             return self
         }
+    }
+    
+    /**
+     Checks wheter or not the `Color` is affected by the current `ColorScheme`
+     */
+    public func isAffectedBy(colorScheme: ColorScheme, tolerance: CGFloat = 0.3) -> Bool {
+        return self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false)
     }
 }
