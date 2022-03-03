@@ -225,6 +225,7 @@ extension Color {
     /**
      Checks wheter or not the `Color` is affected by the current `ColorScheme`
      */
+    @available(iOS 14.0, *)
     public func isAffectedBy(colorScheme: ColorScheme, tolerance: CGFloat = 0.3) -> Bool {
         return self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false)
     }
