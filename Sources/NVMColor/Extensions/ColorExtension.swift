@@ -26,11 +26,15 @@ extension Color {
             var hexNumber: UInt64 = 0
             
             if scanner.scanHexInt64(&hexNumber) {
-                print("hexNumber: \(hexNumber)")
+                print("hexNumber 8: \(hexNumber)")
                 r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                print("r: \(r)")
                 g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                print("g: \(g)")
                 b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                print("b: \(b)")
                 a = CGFloat((hexNumber & 0x000000ff) >> 0) / 255
+                print("a \(a)")
                 
                 self.init(.sRGB, red: Double(r), green: Double(g), blue:  Double(b), opacity: Double(a))
                 return
@@ -42,9 +46,13 @@ extension Color {
             var hexNumber: UInt64 = 0
 
             if scanner.scanHexInt64(&hexNumber) {
+                print("hexNumber 6: \(hexNumber)")
                 r = CGFloat((hexNumber & 0xff0000) >> 16) / 255
+                print("r: \(r)")
                 g = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
+                print("g: \(g)")
                 b = CGFloat((hexNumber & 0x0000ff) >> 0) / 255
+                print("b: \(b)")
                 
                 self.init(.sRGB, red: Double(r), green: Double(g), blue:  Double(b))
                 return
