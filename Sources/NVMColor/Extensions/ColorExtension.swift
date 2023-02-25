@@ -121,25 +121,7 @@ extension Color {
      */
     @available(iOS 14.0, *)
     public func isEqual(to color: Color, tolerance: CGFloat = 0.3, checkAlpha: Bool = false) -> Bool {
-        #if os(iOS)
-        var r1 : CGFloat = 0
-        var g1 : CGFloat = 0
-        var b1 : CGFloat = 0
-        var a1 : CGFloat = 0
-        var r2 : CGFloat = 0
-        var g2 : CGFloat = 0
-        var b2 : CGFloat = 0
-        var a2 : CGFloat = 0
-
-        UIColor(self).getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        UIColor(color).getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
-
-        if checkAlpha {
-            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance && abs(a1 - a2) <= tolerance
-        } else {
-            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance
-        }
-        #elseif os(macOS)
+        #if os(macOS)
         if let newSelfColor = NSColor(self).usingColorSpace(.deviceRGB) {
             if let newColor = NSColor(color).usingColorSpace(.deviceRGB) {
                 var r1 : CGFloat = 0
@@ -165,6 +147,24 @@ extension Color {
             }
         } else {
             return false
+        }
+        #else
+        var r1 : CGFloat = 0
+        var g1 : CGFloat = 0
+        var b1 : CGFloat = 0
+        var a1 : CGFloat = 0
+        var r2 : CGFloat = 0
+        var g2 : CGFloat = 0
+        var b2 : CGFloat = 0
+        var a2 : CGFloat = 0
+
+        UIColor(self).getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        UIColor(color).getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+
+        if checkAlpha {
+            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance && abs(a1 - a2) <= tolerance
+        } else {
+            return abs(r1 - r2) <= tolerance && abs(g1 - g2) <= tolerance && abs(b1 - b2) <= tolerance
         }
         #endif
     }
