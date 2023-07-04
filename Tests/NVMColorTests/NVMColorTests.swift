@@ -14,6 +14,7 @@ final class NVMColorTests: XCTestCase {
     }
     
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testColorComparison() throws {
         XCTAssertTrue(Color.green.isEqual(to: Color.green))
         XCTAssertTrue(Color.white.isEqual(to: Color.white))
@@ -22,6 +23,7 @@ final class NVMColorTests: XCTestCase {
         XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000")!))
     }
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testColorComparisonWithTolerance() throws {
         XCTAssertTrue(Color.green.isEqual(to: Color.green, tolerance: 0.1))
         XCTAssertTrue(Color.white.isEqual(to: Color.white, tolerance: 0.1))
@@ -30,6 +32,7 @@ final class NVMColorTests: XCTestCase {
         XCTAssertTrue(Color.black.isEqual(to: Color(hex: "000000")!, tolerance: 0.1))
     }
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testColorComparisonFalse() throws {
         XCTAssertFalse(Color.green.isEqual(to: Color.red))
         XCTAssertFalse(Color.white.isEqual(to: Color.black))
@@ -38,6 +41,7 @@ final class NVMColorTests: XCTestCase {
         XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")!))
     }
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testColorComparisonFalseWithTolerance() throws {
         XCTAssertFalse(Color.green.isEqual(to: Color.red, tolerance: 0.1))
         XCTAssertFalse(Color.white.isEqual(to: Color.black, tolerance: 0.1))
@@ -45,16 +49,20 @@ final class NVMColorTests: XCTestCase {
         XCTAssertFalse(Color.black.isEqual(to: Color.white, tolerance: 0.1))
         XCTAssertFalse(Color.black.isEqual(to: Color(hex: "FFFFFF")!, tolerance: 0.1))
     }
+    @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testOpacicty() throws {
         let testColor = Color(.sRGB, red: 0.5, green: 0.3, blue: 0.1, opacity: 0.75)
         XCTAssertTrue(testColor.isEqual(to: Color(hex: "804C19BF")!, tolerance: 0.1))
     }
     
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testThemedColor() throws {
         XCTAssertEqual(Color.red.themedColor(colorScheme), Color.red)
     }
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testThemedColor2() throws {
         if colorScheme == .dark {
             XCTAssertEqual(Color(hex: "2E3240")!.themedColor(colorScheme, tolerance: 0.3), Color.primary)
@@ -63,6 +71,7 @@ final class NVMColorTests: XCTestCase {
         }
     }
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     func testThemedColor3() throws {
         let replacingColor = Color.green
         if colorScheme == .dark {

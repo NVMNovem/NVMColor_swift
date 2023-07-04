@@ -35,6 +35,7 @@ public struct NVMColor {
      - note: The default tolerance is **0.3**.
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     public static func colorsAreEqual(_ color1: Color, to color2: Color, tolerance: CGFloat = 0.3) -> Bool {
         return color1.isEqual(to: color2, tolerance: tolerance)
     }
@@ -208,6 +209,7 @@ public extension NVMImageColors {
      - note: Comparison is calculated with a **0.3** tolerance.
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     var prominentColor: Color {
         let tolerance: CGFloat = 0.3
         var mainColor: Color = self.background

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+#if os(watchOS)
+#else
 @available(iOS 14.0, macOS 11.0, *)
 @available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension ColorPicker {
     
     /**
@@ -44,3 +45,4 @@ extension ColorPicker {
         }
     }
 }
+#endif

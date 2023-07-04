@@ -120,6 +120,7 @@ extension Color {
      - note: The default tolerance is **0.3**.
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     public func isEqual(to color: Color, tolerance: CGFloat = 0.3, checkAlpha: Bool = false) -> Bool {
         #if os(macOS)
         if let newSelfColor = NSColor(self).usingColorSpace(.deviceRGB) {
@@ -177,6 +178,7 @@ extension Color {
      - warning: This does not look at the current theme. If you want to look at the current theme, use the **func themedColor()**
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     public var themedColor: Color {
         if ((self.isEqual(to: .black, tolerance: 0.3)) || (self.isEqual(to: .white, tolerance: 0.3))) {
             return Color.primary
@@ -195,6 +197,7 @@ extension Color {
      - parameter tolerance: An optional `CGFloat` of a tolerance from **0** to **1.0**. Default is **0.3**.
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     public func themedColor(_ colorScheme: ColorScheme, replacingColor: Color? = nil, tolerance: CGFloat = 0.3) -> Color {
         if self.isAffectedBy(colorScheme: colorScheme, tolerance: tolerance) {
             return replacingColor?.fptThemedColor(colorScheme, tolerance: tolerance) ?? Color.primary
@@ -214,6 +217,7 @@ extension Color {
      - note: This function is only used to validate the replacingColor. FilePrivate use only.
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     fileprivate func fptThemedColor(_ colorScheme: ColorScheme, tolerance: CGFloat = 0.3) -> Color {
         if self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false) {
             return Color.primary
@@ -226,6 +230,7 @@ extension Color {
      Checks wheter or not the `Color` is affected by the current `ColorScheme`
      */
     @available(iOS 14.0, *)
+    @available(watchOS 7.0, *)
     public func isAffectedBy(colorScheme: ColorScheme, tolerance: CGFloat = 0.3) -> Bool {
         return self.isEqual(to: (colorScheme == .dark) ? .black : .white, tolerance: tolerance, checkAlpha: false)
     }
