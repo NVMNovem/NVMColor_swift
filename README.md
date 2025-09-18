@@ -95,7 +95,7 @@ if NVMColor.colorsAreEqual(.green, to: Color(hex: "34C759")) {
 
 ### Themed Color
 
-You can get a color that fits the current device sheme if the input color is to close to the device scheme color.
+You can get a color that fits the current device sheme if the input color is too close to the device scheme color.
 ```swift
 struct MyView: View {
     @Environment(\.colorScheme) private var colorScheme
