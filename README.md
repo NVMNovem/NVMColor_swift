@@ -40,7 +40,7 @@ let package = Package(
 Then run `swift build`. 
 
 You can also install using SPM in your Xcode project by going to 
-"Project->NameOfYourProject->Swift Packages" and placing "https://github.com/NVMNovem/NVMColor" in the 
+"Project->NameOfYourProject->Swift Packages" and placing "https://github.com/NVMNovem/NVMColor_swift" in the 
 search field. Then select the option that is most suited for your needs.
 
 
